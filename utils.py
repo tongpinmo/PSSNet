@@ -27,7 +27,7 @@ def fit(model, dataloader, opt, loss_function, epoch):
     loss_sum = 0.
     for i, batch in enumerate(dataloader):
         opt.zero_grad()
-        loss = loss_function(model, batch,epoch)
+        loss = loss_function(model, batch)
         loss.backward()
         opt.step()
 
@@ -73,11 +73,9 @@ def val_MAE(model, dataset, epoch):
     for i in range(n_images):
         batch = dataset[i]
         batch["images"] = batch["images"][None]
-        # print('batch:',batch)
 
         # Make sure model wasn't trained on this
         assert batch["image_path"] not in model.trained_images
-        # print("model wasn't trained on this!")
 
         true_count[i] = batch["counts"].item()
         print('true_count: ',true_count[i])
@@ -114,7 +112,6 @@ def val_mRMSE(model, dataset, epoch):
         pred_count[i] = model.predict(batch, method="counts")
 
         # RMSE = np.sqrt(np.mean((pred_count[:i + 1] - true_count[:i + 1]) ** 2, 0))
-        # print('type_of_RMSE:',RMSE)
         mRMSE = np.sqrt(np.mean((pred_count[:i+1] - true_count[:i+1])**2, 0)).mean()
 
         if i % 50 == 0 or i == (n_images - 1):

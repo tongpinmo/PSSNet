@@ -20,8 +20,8 @@ def train(
         reset=False):
   # SET SEED
     np.random.seed(1)
-    torch.manual_seed(1)  # set seed for CPU
-    torch.cuda.manual_seed_all(1)  # set seed for all GPU
+    torch.manual_seed(1)            # set seed for CPU
+    torch.cuda.manual_seed_all(1)   # set seed for all GPU
 
   # Train datasets
     transformer = ut.ComposeJoint(
@@ -104,7 +104,6 @@ def train(
 
         print('keys of history: ', history.keys())
         print('val_dict[metric_name]: ',val_dict[metric_name])
-        # print('history["metric_name"]: ',history["metric_name"])
         history["best_val_mae"] = np.inf
       # Lower is better
         if val_dict[metric_name] <= history["best_val_mae"]:
