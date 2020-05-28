@@ -7,7 +7,7 @@ import torchvision.transforms.functional as FT
 from PIL import Image
 import utils as ut
 
-###----------------------------------------------first step:get pointDict
+#----------------------------------------------first step:get pointDict---------------------
 def get_pointDict(path, imgNames):
     pointDict = {}
     for i, img_name in enumerate(imgNames):

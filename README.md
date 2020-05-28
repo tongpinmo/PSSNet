@@ -7,9 +7,11 @@
 
 ## Description
 
+
+
 ## Test on single image
 
-We test a trained ResNet on a Trancos example image as follows:
+We test a trained WTCNet on a acacia example image as follows:
 
 ```
 python main.py -image_path figures/test.png \
@@ -27,9 +29,23 @@ python main.py  -image_path ./figures/oilpalm/test_image.jpg \
                 -model_name ResUnet
 ```
 
-### Training the models from scratch
+## Experiments
 
-To train the model,
+#### 1: Download Datasets
+
+* Acacia dataset
+
+* Oil Palm dataset
+
+* Sorghum Plant 
+
+  ```python
+  https://engineering.purdue.edu/~sorghum/dataset-plant-centers-2016/
+  ```
+
+#### 2: Train the model
+
+for Oil Palm dataset
 
 ```
 python main.py -m train -e oilpalm
@@ -41,7 +57,19 @@ for Acacia dataset
 python main.py -m train -e acacia
 ```
 
-if you want to train other datasets by yourself, just change the -e parameter.
+If you want to train other datasets by yourself, just change the -e parameter.
+
+### 3: Test the results
+
+```python
+sh test.sh
+```
+
+
+
+
+
+
 
 
 
