@@ -22,19 +22,10 @@ class BaseModel(nn.Module):
 
     @torch.no_grad()
     def predict(self, batch, method="probs"):
-        self.eval()                 #predict
-        # print('self.eval(): ',self.eval())
         if method == "counts":
             images = batch["images"].cuda()
-            # pred_mask = self(images).data.max(1)[1].squeeze().cpu().numpy()
-            origin_mask = F.softmax(self(images),1)                                 #(1,2,500,500)
-            # print('origin_mask: ',origin_mask)
-            mask_numpy = ut.t2n(origin_mask[0])                                     #(2,500,500)
-            h_mask,w_mask = mask_numpy[1].shape
-            for i in range(h_mask):
-                for j in range(w_mask):
-                    if mask_numpy[1][i][j] > 0.15:
-                        mask_numpy[1][i][j] = 1.0
+            origin_mask = F.softmax(self(images),1)
+            mask_numpy = ut.t2n(origin_mask[0])
             pred_mask = np.argmax(mask_numpy,axis=0)
             #visualize origin mask
 
@@ -44,8 +35,6 @@ class BaseModel(nn.Module):
                 if category_id == 0:
                     continue
                 blobs_category = morph.label(pred_mask==category_id)
-                # print('blobs_category:{}\n| np.unique(blobs_category):{}'.format(blobs_category,np.unique(blobs_category)))
-                # print('(np.unique(blobs_category) != 0): ',(np.unique(blobs_category) != 0))
                 n_blobs = (np.unique(blobs_category) != 0).sum()
                 counts[category_id-1] = n_blobs
                 print('counts[None]: ',counts[None])
@@ -56,39 +45,21 @@ class BaseModel(nn.Module):
 
             images = batch["images"].cuda() 
 
-            origin_mask = F.softmax(self(images),1)                                #(1,2,500,500)
-            # print('origin_mask: ',origin_mask)
-            mask_numpy = ut.t2n(origin_mask[0])                                     #(2,500,500)
-            # print('mask_numpy_origin: ',mask_numpy)
+            origin_mask = F.softmax(self(images),1)
+            mask_numpy = ut.t2n(origin_mask[0])
 
             #foreground
-            h_mask,w_mask = mask_numpy[1].shape
-            for i in range(h_mask):
-                for j in range(w_mask):
-                    if mask_numpy[1][i][j] > 0.15:
-                        mask_numpy[1][i][j] = 1.0
-            # np.savetxt('mask_froeground_after.txt', mask_numpy[1])
-            # print('mask_numpy_after: ', mask_numpy)
             pred_mask = np.argmax(mask_numpy,axis=0)
-            # print('pred_mask.shape: ',pred_mask.shape)                            #(500,500)
-            # np.savetxt('pred_mask.txt',pred_mask)
-            # plt.imsave(os.path.join('figures/softmax_mask/'+name+'_mask.png'),pred_mask,cmap='gray')
-
-
-            # print('torch.max(self(images).data): ',torch.max(self(images).data,dim=1))
 
             h,w = pred_mask.shape
             blobs = np.zeros((self.n_classes-1, h, w), int)
-            # print('np.unique(pred_mask):',np.unique(pred_mask))
+
 
             for category_id in np.unique(pred_mask):    #[0 1]
                 if category_id == 0:
                     continue
-                # print('pred_mask == category_id :',pred_mask == category_id)
+
                 blobs[category_id-1] = morph.label(pred_mask==category_id)
-                # print('model_blobs: ',blobs)
-                # print('np.unique(blobs) != 0: ',(np.unique(blobs) != 0))
-            # np.savetxt('blob.txt',blobs.squeeze())
 
             return blobs[None]
 

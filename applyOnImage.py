@@ -32,15 +32,12 @@ def apply(image_path, model_name, model_path):
 
     # Make predictions
     pred_blobs = model.predict(batch, method="blobs").squeeze()
-    print('np.unique(pred_blobs): ', np.unique(pred_blobs))
     pred_counts = int(model.predict(batch, method="counts").ravel()[0])
-    print('pred_counts: ',pred_counts)
 
     # Save Output
     save_path = image_path + "_blobs_count:{}.png".format(pred_counts)
 
     imsave(save_path, ut.combine_image_blobs(image_raw, pred_blobs))
-    print("Counts: {}\n Output saved in: {}".format(pred_counts, save_path))
 
     #Get the centroid of output image
     center = dict()

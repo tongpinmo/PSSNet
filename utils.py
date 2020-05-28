@@ -26,9 +26,6 @@ def fit(model, dataloader, opt, loss_function, epoch):
 
     loss_sum = 0.
     for i, batch in enumerate(dataloader):
-        # print('i:',i)
-        # print('batch:',batch)
-        # print('model:',model)
         opt.zero_grad()
         loss = loss_function(model, batch,epoch)
         loss.backward()

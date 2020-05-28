@@ -49,11 +49,11 @@ def train(
             [None, ut.ToLong()]
         ])
 
-    # val_set = dataset_dict[dataset_name](split="val",
-    #                                    transform_function=transformer)
-    #
-    # test_set = dataset_dict[dataset_name](split="test",
-    #                                    transform_function=transformer)
+    val_set = dataset_dict[dataset_name](split="val",
+                                       transform_function=transformer)
+
+    test_set = dataset_dict[dataset_name](split="test",
+                                       transform_function=transformer)
 
   # Model
     model = model_dict[model_name](train_set.n_classes).cuda()
@@ -95,23 +95,23 @@ def train(
         ut.save_json(path_history, history)
 
     # %%%%%%%%%%% 2. VALIDATION PHASE %%%%%%%%%%%%"
-    # with torch.no_grad():
-    #     val_dict = ut.val(model=model, dataset=val_set, epoch=epoch,
-    #                     metric_name=metric_name)
-    #
-    #     # Update history
-    #     history["val"] += [val_dict]
-    #
-    #     print('keys of history: ', history.keys())
-    #     print('val_dict[metric_name]: ',val_dict[metric_name])        #3.788095238095238
-    #     # print('history["metric_name"]: ',history["metric_name"])
-    #     history["best_val_mae"] = np.inf
-    #   # Lower is better
-    #     if val_dict[metric_name] <= history["best_val_mae"]:
-    #         history["best_val_epoch"] = epoch
-    #         history["best_val_mae"] = val_dict[metric_name]
-    #
-    #         torch.save(model.state_dict(), path_best_model)
+    with torch.no_grad():
+        val_dict = ut.val(model=model, dataset=val_set, epoch=epoch,
+                        metric_name=metric_name)
+
+        # Update history
+        history["val"] += [val_dict]
+
+        print('keys of history: ', history.keys())
+        print('val_dict[metric_name]: ',val_dict[metric_name])
+        # print('history["metric_name"]: ',history["metric_name"])
+        history["best_val_mae"] = np.inf
+      # Lower is better
+        if val_dict[metric_name] <= history["best_val_mae"]:
+            history["best_val_epoch"] = epoch
+            history["best_val_mae"] = val_dict[metric_name]
+
+            torch.save(model.state_dict(), path_best_model)
 
         # Test Model
         if not (dataset_name == "penguins" and epoch < 50):

@@ -1,17 +1,17 @@
 def get_experiment(exp_name):
 
     if exp_name == "acacia":
-        dataset_name="acacia"
-        model_name="ResFCN"
-        metric_name = "MAE"
-
-    if exp_name == "acacia":
         dataset_name = "acacia"
         model_name = "ResUnet"
         metric_name = "MAE"
 
     if exp_name == "oilpalm":
         dataset_name = "oilpalm"
+        model_name = "ResUnet"
+        metric_name = "MAE"
+
+    if exp_name == "Sorghum":
+        dataset_name = "Sorghum"
         model_name = "ResUnet"
         metric_name = "MAE"
 

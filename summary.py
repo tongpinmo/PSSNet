@@ -6,7 +6,6 @@ import utils as ut
 
 def summary(dataset_name, model_name, 
             path_history="checkpoints/history.json"):
-            # checkpoints_path="/mnt/home/issam/LCFCNSaves/"):
     history = ut.load_json(path_history)
 
     print("\nTrain-----------")
