@@ -113,7 +113,7 @@ def train(
             torch.save(model.state_dict(), path_best_model)
 
         # Test Model
-        if not (dataset_name == "penguins" and epoch < 50):
+        if not (dataset_name == "Sorghum" and epoch < 50):
             testDict = ut.val(model=model,
                                 dataset=test_set,
                                 epoch=epoch, metric_name=metric_name)

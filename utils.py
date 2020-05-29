@@ -78,9 +78,7 @@ def val_MAE(model, dataset, epoch):
         assert batch["image_path"] not in model.trained_images
 
         true_count[i] = batch["counts"].item()
-        print('true_count: ',true_count[i])
         pred_count[i] = model.predict(batch, method="counts")
-        print('pred_count: ',pred_count[i])
 
         mae = (np.abs(true_count[:i+1] - pred_count[:i+1])).mean()
 

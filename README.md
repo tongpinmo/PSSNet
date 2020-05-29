@@ -62,7 +62,9 @@ If you want to train other datasets by yourself, just change the -e parameter.
 ### 3: Test the results
 
 ```python
-sh test.sh
+python main.py -image_path figures/test.png \
+                -model_path checkpoints/best_model_acacia_ResUnet.pth \
+                -model_name ResUnet
 ```
 
 

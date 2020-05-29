@@ -55,7 +55,7 @@ class BaseModel(nn.Module):
             blobs = np.zeros((self.n_classes-1, h, w), int)
 
 
-            for category_id in np.unique(pred_mask):    #[0 1]
+            for category_id in np.unique(pred_mask):
                 if category_id == 0:
                     continue
 
@@ -141,7 +141,7 @@ class DecoderBlockV2(nn.Module):
         return self.block(x)
 
 
-class ResUnet(BaseModel):
+class WTCNet(BaseModel):
     """
         UNet (https://arxiv.org/abs/1505.04597) with Resnet50(https://arxiv.org/abs/1512.03385) encoder
 
@@ -160,7 +160,7 @@ class ResUnet(BaseModel):
             False: bilinear interpolation is used in decoder
             True: deconvolution is used in decoder
         """
-        super(ResUnet,self).__init__(n_classes)
+        super(WTCNet,self).__init__(n_classes)
         self.num_classes = n_classes
 
         self.pool = nn.MaxPool2d(2, 2)

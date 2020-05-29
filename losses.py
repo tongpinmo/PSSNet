@@ -64,23 +64,6 @@ def lc_loss(model, batch):
 
     return loss / N
 
-
-# Loss Utils
-def compute_image_loss(S, Counts):
-    n,k,h,w = S.size()
-
-    # GET TARGET
-    ones = torch.ones(Counts.size(0), 1).long().cuda()
-    BgFgCounts = torch.cat([ones, Counts], 1)
-    Target = (BgFgCounts.view(n*k).view(-1) > 0).view(-1).float()
-
-    # GET INPUT
-    Smax = torch.max(S.view(n,k,h*w),dim=2)[0].view(-1)
-
-    loss = F.binary_cross_entropy_with_logits(Smax, Target, reduction='sum')
-
-    return loss
-
 def compute_fp_loss(S_log, blob_dict):
     blobs = blob_dict["blobs"]
 
@@ -96,7 +79,6 @@ def compute_fp_loss(S_log, blob_dict):
                         ignore_index=1, reduction='elementwise_mean')
     return loss
 
-#todo delete epoch
 def compute_split_loss(S_log, S, points, blob_dict):
     blobs = blob_dict["blobs"]
 

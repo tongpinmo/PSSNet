@@ -38,7 +38,7 @@ class Acacia(data.Dataset):
                  split=None,
                  transform_function=None):
 
-        self.path  = "/mnt/a409/users/tongpinmo/projects/LCFCN_version4/datasets/acacia-train"
+        self.path  = "/mnt/a409/users/tongpinmo/projects/LCFCN/datasets/acacia-train"
         self.transform_function = transform_function
 
         fname_path = self.path
@@ -50,14 +50,14 @@ class Acacia(data.Dataset):
                              ut.read_text(fname_path + "/train.txt")]
 
 
-        elif split == "val":
-            self.imgNames = [t.replace(".jpg \n", "")
-                             for t in
-                             ut.read_text(fname_path + "/train_val.txt")]
-        elif split == "test":
-            self.imgNames = [t.replace("\n","")
-                                for t in
-                                ut.read_text(fname_path + "/test.txt")]
+        # elif split == "val":
+        #     self.imgNames = [t.replace(".jpg \n", "")
+        #                      for t in
+        #                      ut.read_text(fname_path + "/train_val.txt")]
+        # elif split == "test":
+        #     self.imgNames = [t.replace("\n","")
+        #                         for t in
+        #                         ut.read_text(fname_path + "/test.txt")]
 
         if os.path.exists(path_pointJSON):
             self.pointsJSON = ut.load_json(path_pointJSON)
