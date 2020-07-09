@@ -36,8 +36,7 @@ python main.py  -image_path ./figures/oilpalm/test_image.jpg \
 * Acacia dataset & Oil Palm dataset
 
   ```python
-  https://pan.baidu.com/s/1dawzKTGLt5Y_2PrDVNexdQ 
-  Password: dnon
+  https://1drv.ms/f/s!AsFz7oLq0ulekgDLUWqpwWBtuXnh
   ```
 
 * Sorghum Plant 
