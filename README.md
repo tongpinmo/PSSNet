@@ -1,4 +1,4 @@
-# WTCNet
+# PSSNet
 
 ## Requirements
 
@@ -11,7 +11,7 @@
 
 ## Test on single image
 
-We test a trained WTCNet on a acacia example image as follows:
+We test a trained PSSNet on a acacia example image as follows:
 
 ```
 python main.py -image_path figures/test.png \
