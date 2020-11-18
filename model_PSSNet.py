@@ -141,7 +141,7 @@ class DecoderBlockV2(nn.Module):
         return self.block(x)
 
 
-class WTCNet(BaseModel):
+class PSSNet(BaseModel):
     """
         UNet (https://arxiv.org/abs/1505.04597) with Resnet50(https://arxiv.org/abs/1512.03385) encoder
 
@@ -160,7 +160,7 @@ class WTCNet(BaseModel):
             False: bilinear interpolation is used in decoder
             True: deconvolution is used in decoder
         """
-        super(WTCNet,self).__init__(n_classes)
+        super(PSSNet,self).__init__(n_classes)
         self.num_classes = n_classes
 
         self.pool = nn.MaxPool2d(2, 2)

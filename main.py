@@ -8,8 +8,6 @@ import os
 import matplotlib
 matplotlib.use('Agg')
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
-
 
 def main():
     parser = argparse.ArgumentParser()

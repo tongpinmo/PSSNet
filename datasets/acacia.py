@@ -38,7 +38,7 @@ class Acacia(data.Dataset):
                  split=None,
                  transform_function=None):
 
-        self.path  = "/mnt/a409/users/tongpinmo/projects/LCFCN/datasets/acacia-train"
+        self.path  = "path-of-trainging-dataset"
         self.transform_function = transform_function
 
         fname_path = self.path
@@ -50,14 +50,14 @@ class Acacia(data.Dataset):
                              ut.read_text(fname_path + "/train.txt")]
 
 
-        # elif split == "val":
-        #     self.imgNames = [t.replace(".jpg \n", "")
-        #                      for t in
-        #                      ut.read_text(fname_path + "/train_val.txt")]
-        # elif split == "test":
-        #     self.imgNames = [t.replace("\n","")
-        #                         for t in
-        #                         ut.read_text(fname_path + "/test.txt")]
+        elif split == "val":
+            self.imgNames = [t.replace(".jpg \n", "")
+                             for t in
+                             ut.read_text(fname_path + "/train_val.txt")]
+        elif split == "test":
+            self.imgNames = [t.replace("\n","")
+                                for t in
+                                ut.read_text(fname_path + "/test.txt")]
 
         if os.path.exists(path_pointJSON):
             self.pointsJSON = ut.load_json(path_pointJSON)
@@ -95,7 +95,7 @@ class Acacia(data.Dataset):
                     points[int(p["y"]), int(p["x"])] = self.name2class[p["name"]] + 1
                     counts[self.name2class[p["name"]]] += 1
                     counts_difficult[self.name2class[p["name"]]] += 1
-        #where there is pixels,there is points
+
         points = FT.to_pil_image(points.astype("uint8"))
 
         if self.transform_function is not None:

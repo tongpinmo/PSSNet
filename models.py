@@ -12,7 +12,7 @@ import utils as ut
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
-from model_WTCNet import *
+from model_PSSNet import *
 
 class BaseModel(nn.Module):
     def __init__(self, n_classes):
@@ -137,7 +137,7 @@ class ResFCN(BaseModel):
         
         return logits_upsampled
 
-#----------- LC-FCN8
+#----------------------------------------- LC-FCN8-----------------------------
 class FCN8(BaseModel):
     def __init__(self, n_classes):
         super(FCN8,self).__init__(n_classes)
@@ -267,7 +267,7 @@ class FCN8(BaseModel):
 
         return output[:, :, 31: (31 + h), 31: (31 + w)].contiguous()
 
-model_dict = {"FCN8":FCN8, "ResFCN":ResFCN,"WTCNet":WTCNet}
+model_dict = {"FCN8":FCN8, "ResFCN":ResFCN,"PSSNet":PSSNet}
 
 # Utils
 def get_upsampling_weight(in_channels, out_channels, kernel_size):
